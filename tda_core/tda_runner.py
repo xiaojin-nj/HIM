@@ -49,6 +49,17 @@ tf.app.flags.DEFINE_float("ema_decay", 0.999, "exponential moving average decay 
 tf.app.flags.DEFINE_string("decision_layer_units","256,128,32","decision_layer_units")
 tf.app.flags.DEFINE_string("model_num",None,"model_num")
 
+tf.app.flags.DEFINE_string("group_forward_layer_units","256,128","group_forward_layer_units")
+tf.app.flags.DEFINE_float("temperature",0.01,"temperature")
+tf.app.flags.DEFINE_string("encoder_num_units_forward",'64,32',"encoder_num_units_forward")
+tf.app.flags.DEFINE_string("decoder_num_units_forward",'64,32',"decoder_num_units_forward")
+
+tf.app.flags.DEFINE_integer("embedding_for_att",512,"embedding_for_att")
+tf.app.flags.DEFINE_integer("embedding_for_att_unit",256,"embedding_for_att_unit")
+
+tf.app.flags.DEFINE_string("attention_num_units_forward_group",'256,128',"attention_num_units_forward_group")
+
+
 FLAGS = tf.app.flags.FLAGS
 
 
