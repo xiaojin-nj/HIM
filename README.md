@@ -10,10 +10,7 @@ We will expose the data set at the appropriate time
 * Tensorflow >= 1.0.4
 
 ## Data preprocess
-The dataset is Amozon music or electronics data, download the data and it is split into training set(70%), validatation set (10%), and testing set (20%)
-```
-sh data.sh
-```
+The dataset is Amozon music or electronics & Taobao advertising data, download the data and it is split into training set(70%), validatation set (10%), and testing set (20%)
 
 # Model
 The ./model/hhin_model.py is the model file for HHIN. Train or test model for HHIN.
