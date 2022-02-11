@@ -1,0 +1,116 @@
+{
+    "feature_columns": [
+        {
+            "input_feature_name": "item_id",
+            "combiner": "mean",
+            "to": "deep_id",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "item_id_embedding",
+            "shared_name": "item_id_embedding",
+            "bucket_size": 300000
+        },
+        {
+            "input_feature_name": "leaf_cat",
+            "combiner": "mean",
+            "to": "deep_id",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "leaf_cat_embedding",
+            "shared_name": "leaf_cat_embedding",
+            "bucket_size": 5000
+        },
+        {
+            "input_feature_name": "price_level",
+            "combiner": "mean",
+            "to": "deep_id",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "price_level_embedding",
+            "shared_name": "price_level_embedding",
+            "bucket_size": 50000
+        },
+        {
+            "input_feature_name": "brand_id",
+            "combiner": "mean",
+            "to": "deep_id",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "brand_id_embedding",
+            "shared_name": "brand_id_embedding",
+            "bucket_size": 50000
+        },
+        {
+            "input_feature_name": "user_item_clk_1m",
+            "combiner": "max,sum",
+            "to": "ubb",
+            "transform_name": "string_value",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "user_item_clk_1m_embedding",
+            "max_length": 20,
+            "shared_name": "user_item_clk",
+            "bucket_size": 300000
+        },
+        {
+            "input_feature_name": "user_item_clk_6m",
+            "combiner": "max,sum",
+            "to": "ubb",
+            "transform_name": "string_value",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "user_item_clk_6m_embedding",
+            "max_length": 20,
+            "shared_name": "user_item_clk",
+            "bucket_size": 300000
+        },
+        {
+            "input_feature_name": "user_item_clk_1y",
+            "combiner": "max,sum",
+            "to": "ubb",
+            "transform_name": "string_value",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "user_item_clk_1y_embedding",
+            "max_length": 20,
+            "shared_name": "user_item_clk",
+            "bucket_size": 300000
+        },
+        {
+            "input_feature_name": "user_item_clk_3y",
+            "combiner": "max,sum",
+            "to": "ubb",
+            "transform_name": "string_value",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "user_item_clk_3y_embedding",
+            "max_length": 20,
+            "shared_name": "user_item_clk",
+            "bucket_size": 300000
+        },
+        {
+            "input_feature_name": "user_activation_level",
+            "combiner": "mean",
+            "to": "wide",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "user_activation_level_embedding",
+            "shared_name": "user_activation_level_embedding",
+            "bucket_size": 10
+        }
+    ]
+}
