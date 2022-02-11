@@ -6,7 +6,7 @@ import traceback
 import datetime
 from utils.constant import *
 import importlib
-from model.hhin_model import HhinModel
+from model.him_model import HimModel
 from model_ops.FeatureColumnBuilder_v3 import FeatureColumnBuilder
 
 def dense2sparse(FLAGS,arr_tensor, str_0, len):
@@ -59,28 +59,43 @@ def get_model_instance(FLAGS):
 class DistributedScheduler():
 
     def train(self, FLAGS):
-        filename_queue = tf.train.string_input_producer(["../data/data_musical_instruments_info_train.csv"], num_epochs=FLAGS.num_epoch)
+        filename_queue = tf.train.string_input_producer(["xxxx_train.csv"], num_epochs=FLAGS.num_epoch)
         reader = tf.TextLineReader()
         key, value = reader.read(filename_queue)
 
         with open(FLAGS.transform_json, 'r') as fp:
             self._configDict = json.load(fp)
 
-        record_defaults = [['']]*12
-        unique,labels,userid,user_item_clk_1m,user_item_clk_6m,user_item_clk_1y,user_item_clk_3y,\
-        user_activation_level,item_id,brand_id,price_level,leaf_cat = tf.decode_csv(value, record_defaults)
+        record_defaults = [['']]*18
+        unique,labels,item_id,cate_brand,campaign_id,adid,cms_segid,final_gender_code,age_level,shopping_level,user_clk_item_3d,\
+        user_clk_item_7d,user_clk_item_14d,user_clk_item_30d,user_clk_len_3d,\
+        user_clk_len_7d,user_clk_len_14d,user_clk_len_30d = tf.decode_csv(value, record_defaults)
 
-        unique, labels, userid, user_item_clk_1m, user_item_clk_6m, user_item_clk_1y, user_item_clk_3y, \
-        user_activation_level, item_id, brand_id, price_level, leaf_cat = tf.train.shuffle_batch([unique,labels,userid,user_item_clk_1m,user_item_clk_6m,user_item_clk_1y,user_item_clk_3y,\
-        user_activation_level,item_id,brand_id,price_level,leaf_cat], batch_size=FLAGS.batch_size, capacity=20000, min_after_dequeue=4000, num_threads=2)
+        unique, labels, item_id, cate_brand, campaign_id, adid, cms_segid, final_gender_code, age_level, shopping_level, user_clk_item_3d, \
+        user_clk_item_7d, user_clk_item_14d, user_clk_item_30d, user_clk_len_3d, \
+        user_clk_len_7d, user_clk_len_14d, user_clk_len_30d = tf.train.shuffle_batch([unique,labels,item_id,cate_brand,campaign_id,adid,cms_segid,final_gender_code,age_level,shopping_level,user_clk_item_3d,\
+        user_clk_item_7d,user_clk_item_14d,user_clk_item_30d,user_clk_len_3d,user_clk_len_7d,user_clk_len_14d,user_clk_len_30d], batch_size=FLAGS.batch_size, capacity=20000, min_after_dequeue=4000, num_threads=2)
 
-        features = {'user_item_clk_1m': user_item_clk_1m, 'user_item_clk_6m': user_item_clk_6m,
-                    'user_item_clk_1y': user_item_clk_1y,
-                    'user_item_clk_3y': user_item_clk_3y, 'user_activation_level': user_activation_level,
+        features = {'unique': unique,
+                    'labels': labels,
                     'item_id': item_id,
-                    'brand_id': brand_id, 'price_level': price_level, 'leaf_cat': leaf_cat}
+                    'cate_brand': cate_brand,
+                    'campaign_id': campaign_id,
+                    'adid': adid,
+                    'cms_segid': cms_segid,
+                    'final_gender_code': final_gender_code,
+                    'age_level': age_level,
+                    'shopping_level': shopping_level,
+                    'user_clk_item_3d': user_clk_item_3d,
+                    'user_clk_item_7d': user_clk_item_7d,
+                    'user_clk_item_14d': user_clk_item_14d,
+                    'user_clk_item_30d': user_clk_item_30d,
+                    'user_clk_len_3d': user_clk_len_3d,
+                    'user_clk_len_7d': user_clk_len_7d,
+                    'user_clk_len_14d': user_clk_len_14d,
+                    'user_clk_len_30d': user_clk_len_30d}
 
-        model_instance = HhinModel(FLAGS)
+        model_instance = HimModel(FLAGS)
 
         features = StringtoKV(features, self._configDict)
         self._features = features
@@ -125,7 +140,7 @@ class DistributedScheduler():
                 print("train get exception at step=%d" % step)
 
     def eval(self, FLAGS):
-        filename_queue = tf.train.string_input_producer(["../data/data_musical_instruments_info_test.csv"],
+        filename_queue = tf.train.string_input_producer(["xxxx_test.csv"],
                                                         num_epochs=1)
         reader = tf.TextLineReader()
         key, value = reader.read(filename_queue)
@@ -133,23 +148,39 @@ class DistributedScheduler():
         with open(FLAGS.transform_json, 'r') as fp:
             self._configDict = json.load(fp)
 
-        record_defaults = [['']] * 12
-        unique, labels, userid, user_item_clk_1m, user_item_clk_6m, user_item_clk_1y, user_item_clk_3y, \
-        user_activation_level, item_id, brand_id, price_level, leaf_cat = tf.decode_csv(value, record_defaults)
+        record_defaults = [['']] * 18
+        unique, labels, item_id, cate_brand, campaign_id, adid, cms_segid, final_gender_code, age_level, shopping_level, user_clk_item_3d, \
+        user_clk_item_7d, user_clk_item_14d, user_clk_item_30d, user_clk_len_3d, \
+        user_clk_len_7d, user_clk_len_14d, user_clk_len_30d = tf.decode_csv(value, record_defaults)
 
-        unique, labels, userid, user_item_clk_1m, user_item_clk_6m, user_item_clk_1y, user_item_clk_3y, \
-        user_activation_level, item_id, brand_id, price_level, leaf_cat = tf.train.shuffle_batch(
-            [unique, labels, userid, user_item_clk_1m, user_item_clk_6m, user_item_clk_1y, user_item_clk_3y, \
-             user_activation_level, item_id, brand_id, price_level, leaf_cat], batch_size=FLAGS.batch_size,
+        uunique,labels,item_id,cate_brand,campaign_id,adid,cms_segid,final_gender_code,age_level,shopping_level,user_clk_item_3d,\
+        user_clk_item_7d,user_clk_item_14d,user_clk_item_30d,user_clk_len_3d,\
+        user_clk_len_7d,user_clk_len_14d,user_clk_len_30d = tf.train.shuffle_batch(
+            [unique,labels,item_id,cate_brand,campaign_id,adid,cms_segid,final_gender_code,age_level,shopping_level,user_clk_item_3d,\
+        user_clk_item_7d,user_clk_item_14d,user_clk_item_30d,user_clk_len_3d,\
+        user_clk_len_7d,user_clk_len_14d,user_clk_len_30d], batch_size=FLAGS.batch_size,
             capacity=20000, min_after_dequeue=4000, num_threads=2)
 
-        features = {'user_item_clk_1m': user_item_clk_1m, 'user_item_clk_6m': user_item_clk_6m,
-                    'user_item_clk_1y': user_item_clk_1y,
-                    'user_item_clk_3y': user_item_clk_3y, 'user_activation_level': user_activation_level,
+        features = {'unique': unique,
+                    'labels': labels,
                     'item_id': item_id,
-                    'brand_id': brand_id, 'price_level': price_level, 'leaf_cat': leaf_cat}
+                    'cate_brand': cate_brand,
+                    'campaign_id': campaign_id,
+                    'adid': adid,
+                    'cms_segid': cms_segid,
+                    'final_gender_code': final_gender_code,
+                    'age_level': age_level,
+                    'shopping_level': shopping_level,
+                    'user_clk_item_3d': user_clk_item_3d,
+                    'user_clk_item_7d': user_clk_item_7d,
+                    'user_clk_item_14d': user_clk_item_14d,
+                    'user_clk_item_30d': user_clk_item_30d,
+                    'user_clk_len_3d': user_clk_len_3d,
+                    'user_clk_len_7d': user_clk_len_7d,
+                    'user_clk_len_14d': user_clk_len_14d,
+                    'user_clk_len_30d': user_clk_len_30d}
 
-        model_instance = HhinModel(FLAGS)
+        model_instance = HimModel(FLAGS)
 
         features = StringtoKV(features, self._configDict)
         self._features = features

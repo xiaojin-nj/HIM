@@ -1,0 +1,184 @@
+{
+    "feature_columns": [
+        {
+            "input_feature_name": "item_id",
+            "combiner": "mean",
+            "to": "deep_id",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "item_id_embedding",
+            "shared_name": "item_id_embedding",
+            "bucket_size": 1500000
+        },
+        {
+            "input_feature_name": "cate_brand",
+            "combiner": "mean",
+            "to": "deep_id",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "leaf_cat_embedding",
+            "shared_name": "leaf_cat_embedding",
+            "bucket_size": 500000
+        },
+        {
+            "input_feature_name": "campaign_id",
+            "combiner": "mean",
+            "to": "deep_id",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "campaign_id_embedding",
+            "shared_name": "campaign_id_embedding",
+            "bucket_size": 500000
+        },
+        {
+            "input_feature_name": "adid",
+            "combiner": "mean",
+            "to": "wide",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "adid_embedding",
+            "shared_name": "adid_embedding",
+            "bucket_size": 2000000
+        },
+        {
+            "input_feature_name": "cms_segid",
+            "combiner": "mean",
+            "to": "wide",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "cms_segid_embedding",
+            "shared_name": "cms_segid_embedding",
+            "bucket_size": 200
+        },
+        {
+            "input_feature_name": "final_gender_code",
+            "combiner": "mean",
+            "to": "wide",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "final_gender_embedding",
+            "shared_name": "final_gender_embedding",
+            "bucket_size": 20
+        },
+        {
+            "input_feature_name": "age_level",
+            "combiner": "mean",
+            "to": "wide",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "age_level_embedding",
+            "shared_name": "age_level_embedding",
+            "bucket_size": 20
+        },
+        {
+            "input_feature_name": "shopping_level",
+            "combiner": "mean",
+            "to": "wide",
+            "transform_name": "shared_embedding_columns",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 8,
+            "output_feature_name": "shopping_level_embedding",
+            "shared_name": "shopping_level_embedding",
+            "bucket_size": 20
+        },
+        {
+            "input_feature_name": "user_clk_item_3d",
+            "combiner": "max,sum",
+            "to": "ubb",
+            "transform_name": "string_value",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "user_clk_item_3d_embedding",
+            "max_length": 50,
+            "shared_name": "user_item_clk",
+            "bucket_size": 500000
+        },
+        {
+            "input_feature_name": "user_clk_item_7d",
+            "combiner": "max,sum",
+            "to": "ubb",
+            "transform_name": "string_value",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "user_clk_item_7d_embedding",
+            "max_length": 50,
+            "shared_name": "user_item_clk",
+            "bucket_size": 500000
+        },
+        {
+            "input_feature_name": "user_clk_item_14d",
+            "combiner": "max,sum",
+            "to": "ubb",
+            "transform_name": "string_value",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "user_clk_item_14d_embedding",
+            "max_length": 50,
+            "shared_name": "user_item_clk",
+            "bucket_size": 500000
+        },
+        {
+            "input_feature_name": "user_clk_item_30d",
+            "combiner": "max,sum",
+            "to": "ubb",
+            "transform_name": "string_value",
+            "dtype": "string",
+            "trainable": true,
+            "dimension": 32,
+            "output_feature_name": "user_clk_item_30d_embedding",
+            "max_length": 50,
+            "shared_name": "user_item_clk",
+            "bucket_size": 500000
+        },
+        {
+            "input_feature_name": "user_clk_len_3d",
+            "to": "ubb",
+            "transform_name": "real_valued_column",
+            "dtype": "float32",
+            "output_feature_name": "user_clk_len_3d",
+            "dimension": 1
+        },
+        {
+            "input_feature_name": "user_clk_len_7d",
+            "to": "ubb",
+            "transform_name": "real_valued_column",
+            "dtype": "float32",
+            "output_feature_name": "user_clk_len_7d",
+            "dimension": 1
+        },
+        {
+            "input_feature_name": "user_clk_len_14d",
+            "to": "ubb",
+            "transform_name": "real_valued_column",
+            "dtype": "float32",
+            "output_feature_name": "user_clk_len_14d",
+            "dimension": 1
+        },
+        {
+            "input_feature_name": "user_clk_len_30d",
+            "to": "ubb",
+            "transform_name": "real_valued_column",
+            "dtype": "float32",
+            "output_feature_name": "user_clk_len_30d",
+            "dimension": 1
+        }
+    ]
+}
