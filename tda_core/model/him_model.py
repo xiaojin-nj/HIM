@@ -173,6 +173,25 @@ class HimModel():
                     ubb_embed_value_i = tf.contrib.layers.input_from_feature_columns(features, self._feature_dict['user_clk_item_' + time_i + '_value'])
                     value_i = tf.multiply(ubb_embed_id_i, ubb_embed_value_i)
                     value_i = tf.reshape(value_i, [tf.shape(item_emb)[0], -1, FLAGS.ubb_dim])
+
+                    # ubb_embed_noclk_id_i = tf.contrib.layers.input_from_feature_columns(features, self._feature_dict['user_noclk_item_' + time_i + '_id'])
+                    # ubb_embed_noclk_value_i = tf.contrib.layers.input_from_feature_columns(features, self._feature_dict['user_noclk_item_' + time_i + '_value'])
+                    # value_noclk_i = pool_v1('sum,max', tf.reshape(tf.multiply(ubb_embed_noclk_id_i, ubb_embed_noclk_value_i), [tf.shape(item_emb)[0], -1, FLAGS.ubb_dim]), name='p0', axis=1)
+                    # clk_emb_list.append(value_noclk_i)
+                    # target = tf.expand_dims(value_noclk_i, 1)
+                    # length = tf.count_nonzero(tf.reshape(ubb_embed_value_i, [tf.shape(item_emb)[0], -1, 1]), -1)
+                    # value_i, w0 = dnn_multihead_attention(queries=target, keys=value_i,
+                    #                                       key_length=length, scope='noclk-clk',
+                    #                                       num_heads=1, keep_prob=keep_prob,
+                    #                                       num_units=FLAGS.attention_num_units,
+                    #                                       num_output_units=FLAGS.attention_num_output_units,
+                    #                                       is_training=is_training,
+                    #                                       num_units_forward=map(int,
+                    #                                                             FLAGS.attention_num_units_forward.split(
+                    #                                                                 ",")),
+                    #                                       activation_fn=activation)
+                    # value_i = tf.squeeze(value_i, axis=1)
+
                     clk_orig_emb_list.append(value_i)
 
                     with variable_scope.variable_scope('pool_fcn', partitioner=None):
